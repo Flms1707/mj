@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de CPF para Testes</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f9;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .cpf-display {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1.5rem 0;
+            color: #333;
+            letter-spacing: 1px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Gerador de CPF</h2>
+    <p>Uso exclusivo para testes de software</p>
+    <div class="cpf-display" id="cpf-resultado">000.000.000-00</div>
+    <button onclick="exibirCPF()">Gerar Novo CPF</button>
+</div>
+
+<script>
+    function gerarCPF() {
+        const aleatorio = (n) => Math.round(Math.random() * n);
+        const mod = (dividendo, divisor) => Math.round(dividendo - (Math.floor(dividendo / divisor) * divisor));
+
+        const n1 = aleatorio(9);
+        const n2 = aleatorio(9);
+        const n3 = aleatorio(9);
+        const n4 = aleatorio(9);
+        const n5 = aleatorio(9);
+        const n6 = aleatorio(9);
+        const n7 = aleatorio(9);
+        const n8 = aleatorio(9);
+        const n9 = aleatorio(9);
+
+        let d1 = n9 * 2 + n8 * 3 + n7 * 4 + n6 * 5 + n5 * 6 + n4 * 7 + n3 * 8 + n2 * 9 + n1 * 10;
+        d1 = 11 - (mod(d1, 11));
+        if (d1 >= 10) d1 = 0;
+
+        let d2 = d1 * 2 + n9 * 3 + n8 * 4 + n7 * 5 + n6 * 6 + n5 * 7 + n4 * 8 + n3 * 9 + n2 * 10 + n1 * 11;
+        d2 = 11 - (mod(d2, 11));
+        if (d2 >= 10) d2 = 0;
+
+        return `${n1}${n2}${n3}.${n4}${n5}${n6}.${n7}${n8}${n9}-${d1}${d2}`;
+    }
+
+    function exibirCPF() {
+        document.getElementById('cpf-resultado').innerText = gerarCPF();
+    }
+</script>
+
+</body>
+</html>
